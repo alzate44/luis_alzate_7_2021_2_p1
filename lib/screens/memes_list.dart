@@ -14,7 +14,7 @@ class MemesList extends StatefulWidget {
 }
 
 class _MemesListState extends State<MemesList> {
-  List<Memes> _memes = [];
+  List<Meme> _memes = [];
 
   @override
   void initState() {
@@ -25,7 +25,12 @@ class _MemesListState extends State<MemesList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Listado de memes")),
+      appBar: AppBar(
+        title: Text('Listado de Memes') ,
+        ),
+        body: Center(
+          child: Text('Lista de memes') ,
+          ),
       
     );
   }
