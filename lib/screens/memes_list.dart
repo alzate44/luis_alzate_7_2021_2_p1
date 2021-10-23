@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -52,6 +54,14 @@ class _MemesListState extends State<MemesList> {
       setState(() {
       _showLoader = false;
     });
-    print(response.body);
+    var body = response.body;
+    var decodedJson = jsonDecode(body);
+
+    if(decodedJson != null){
+      for (var item in decodedJson['data']){
+        _memes.add(Meme.fromJson(item)); //loading memes in variable _memes
+      }
+    }
+    print(_memes);
   }
 }
