@@ -41,7 +41,7 @@ class _MemesListState extends State<MemesList> {
     setState(() {
       _showLoader = true;
     });
-    var url = Uri.parse('${Constans.apiUrl}/https://api.doge-meme.lol/docs#/health/pong_v1_ping_get');
+    var url = Uri.parse('${Constans.apiUrl}/memes/');
     var response = await http.get(
       url,
       headers: {
@@ -52,6 +52,6 @@ class _MemesListState extends State<MemesList> {
       setState(() {
       _showLoader = false;
     });
-    print(response);
+    print(response.body);
   }
 }
