@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:luis_alzate_7_2021_2_p1/models/memes.dart';
 import 'package:luis_alzate_7_2021_2_p1/helpers/constans.dart';
+import 'package:luis_alzate_7_2021_2_p1/components/loader_component.dart';
 
 
 
@@ -15,6 +16,7 @@ class MemesList extends StatefulWidget {
 
 class _MemesListState extends State<MemesList> {
   List<Meme> _memes = [];
+  bool _showLoader = false;
 
   @override
   void initState() {
@@ -29,14 +31,16 @@ class _MemesListState extends State<MemesList> {
         title: Text('Listado de Memes') ,
         ),
         body: Center(
-          child: Text('Lista de memes') ,
+          child: _showLoader ? LoaderComponent(text: 'Por favor espere...') : Text ('Lista de memes')
           ),
       
     );
   }
 
   void _getMemes() async {
-
+    setState(() {
+      _showLoader = true;
+    });
     var url = Uri.parse('${Constans.apiUrl}/https://api.doge-meme.lol/docs#/health/pong_v1_ping_get');
     var response = await http.get(
       url,
@@ -45,6 +49,9 @@ class _MemesListState extends State<MemesList> {
         'accept' : 'application/json',
       }
     );
+      setState(() {
+      _showLoader = false;
+    });
     print(response);
   }
 }
