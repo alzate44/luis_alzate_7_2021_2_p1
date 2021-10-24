@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
+import 'package:connectivity/connectivity.dart';
 
 import 'package:luis_alzate_7_2021_2_p1/models/memes.dart';
 import 'package:luis_alzate_7_2021_2_p1/helpers/constans.dart';
@@ -57,6 +58,23 @@ class _MemesListState extends State<MemesList> {
     setState(() {
       _showLoader = true;
     });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none){
+        setState(() {
+        _showLoader = false;
+      });
+
+      await showAlertDialog(
+        context : context,
+        title : 'Error de conexión',
+        message : 'Verifica la conexión a internet.',
+        actions: <AlertDialogAction>[
+          AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );
+        return;
+    }
     var url = Uri.parse('${Constans.apiUrl}/memes/');
     var response = await http.get(
       url,
@@ -113,7 +131,7 @@ class _MemesListState extends State<MemesList> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DetailMeme(
+                builder: (context) => infoMeme(
                   meme: e,
                 )
               )
@@ -130,8 +148,20 @@ class _MemesListState extends State<MemesList> {
                     fontSize: 25
                     ),
                     ),
-                    
-                 //Image(image: NetworkImage(e.submissionUrl))
+
+                // FadeInImage(
+                //   placeholder: AssetImage('assets/meme.png'),
+                //    image: NetworkImage(e.submissionUrl),
+                //    width : 80,
+                //    height : 80,
+                //    fit: BoxFit.cover,
+                //    )
+                //  if(e.submissionTitle.toLowerCase().contains('png')) {
+                //    Image(image: NetworkImage(e.submissionUrl))
+                //  }  
+
+                //   Image(image: NetworkImage('/assets/meme.png'))
+                 
                  Text(
                    e.submissionUrl, 
                   style: TextStyle(
@@ -215,7 +245,7 @@ class _MemesListState extends State<MemesList> {
     }
     setState(() {
       _memes = filteredList;
-      _isFilter = true;
+      _isFiltered = true;
     });
 
     Navigator.of(context).pop();
