@@ -160,7 +160,7 @@ class _MemesListState extends State<MemesList> {
                 //    Image(image: NetworkImage(e.submissionUrl))
                 //  }  
 
-                //   Image(image: NetworkImage('/assets/meme.png'))
+                 //Image(image: NetworkImage('/assets/meme.png')),
                  
                  Text(
                    e.submissionUrl, 

@@ -1,5 +1,7 @@
 
 
+
+
 import 'package:flutter/material.dart';
 import 'package:luis_alzate_7_2021_2_p1/components/loader_component.dart';
 import 'package:luis_alzate_7_2021_2_p1/models/memes.dart';
@@ -42,21 +44,31 @@ class _infoMemeState extends State<infoMeme> {
      padding: EdgeInsets.all(10),
      child: Column(
        children: [
-         
-         Text(
-          'Url: ', 
+
+           Text(
+          'Imagen: ', 
             style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 25
           )
         ),
 
-        Text(
-            widget.meme.submissionUrl,
-            style: TextStyle(
-            fontSize: 15
-          )
-        ),
+         Image(image: NetworkImage(widget.meme.submissionUrl), height: 350, width: 350,),
+         
+        //  Text(
+        //   'Url: ', 
+        //     style: TextStyle(
+        //     fontWeight: FontWeight.bold,
+        //     fontSize: 25
+        //   )
+        // ),
+
+        // Text(
+        //     widget.meme.submissionUrl,
+        //     style: TextStyle(
+        //     fontSize: 15
+        //   )
+        // ),
 
          Text(
           'Autor: ', 
@@ -133,15 +145,7 @@ class _infoMemeState extends State<infoMeme> {
           )
         ),
 
-         Text(
-          'Imagen: ', 
-            style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 25
-          )
-        ),
-
-       //Image(image: NetworkImage(widget.meme.submissionUrl), height: 350, width: 350,)
+       
 
 
 
@@ -155,5 +159,6 @@ class _infoMemeState extends State<infoMeme> {
     
      
   }
-  
+
+ 
 }
